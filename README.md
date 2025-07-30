@@ -12,5 +12,6 @@ A simple Bash-based command-line tool to add, view, search, and delete personal 
 ## How to Run
 
 ```bash
+chmod +x botes.sh
 bash notes.sh
 
