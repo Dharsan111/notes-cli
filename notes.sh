@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NOTES_FILE="$HOME/.simple_notes.txt"
+NOTES_FILE=~/project2/simple_notes.txt
 touch "$NOTES_FILE"
 
 add_notes() {
@@ -26,13 +26,29 @@ view_notes() {
 
 delete_note() {
 	echo "---- Delete a Note ----"
-        read -p "Enter Note ID: " delete_id
-        if grep -q "^$delete_id|" "$NOTES_FILE"; then 
-		awk -F'|' -v id="$delete_id" '$1 != id' "$NOTES_FILE" > temp && mv temp "$NOTES_FILE"
-                echo "Note deleted!"
-        else 
-		echo "ID not found."
-	fi
+    if [[ ! -s "$NOTES_FILE" ]]; then
+        echo "No notes found to delete."
+        return
+    fi
+
+    # Display all notes with index
+    i=1
+    declare -A id_map
+    while IFS="|" read -r id timestamp title note; do
+        echo "$i. Title: $title | Time: $timestamp"
+        id_map[$i]=$id
+        ((i++))
+    done < "$NOTES_FILE"
+
+    read -p "Enter the number of the note to delete: " num
+
+    if [[ -n "${id_map[$num]}" ]]; then
+        id_to_delete="${id_map[$num]}"
+        grep -v "^$id_to_delete|" "$NOTES_FILE" > temp.txt && mv temp.txt "$NOTES_FILE"
+        echo "Note deleted!"
+    else
+        echo "Invalid selection."
+    fi
 }
 
 search_notes() {
