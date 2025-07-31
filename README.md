@@ -6,7 +6,7 @@ A simple Bash-based command-line tool to add, view, search, and delete personal 
 - Add notes with a title and message
 - View all saved notes
 - Search notes by keyword
-- Delete notes by ID
+- Delete notes by the Note Number
 - Timestamps each note
 
 ## How to Run
