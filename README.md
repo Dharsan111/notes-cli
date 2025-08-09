@@ -1,4 +1,5 @@
 Personal Notes CLI App
+----------------------
 
 A simple Bash-based command-line tool to add, view, search, and delete personal notes. Built for Linux and WSL environments.
 
